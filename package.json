@@ -10,7 +10,7 @@
   "babel": {
     "presets": ["env", "react"]
   },
-  "author": "",
+  "author": "Volodymyr Mordas <volodymyrmordas@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "react": "^16.0.0",

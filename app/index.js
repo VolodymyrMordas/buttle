@@ -3,17 +3,17 @@ const ReactDOM  = require('react-dom');
 
 require('./index.css');
 
-class App extends React.Comment {
+class App extends React.Component {
     render (){
         return (
             <div>
-                Hello
+                Hello world, {this.props.name} {this.props.familyname}
             </div>
         );
     }
 }
 
 ReactDOM.render(
-    <App />,
+    <App name="vitaly" familyname="telychko" />,
     document.getElementById("app")
 );
