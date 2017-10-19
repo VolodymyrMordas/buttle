@@ -7,22 +7,31 @@ import NavItem from 'react-bootstrap/lib/NavItem';
 import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 
-function NavItems(props){
+function NavItems(props) {
+    // ['All', 'Javascript', 'Ruby', 'Java', 'CSS', 'Python'];
     const nav = [
-        {title: 'Home', isInner: false, to:'/'},
-        {title: 'Lessons', isInner: true, menu:[
-            {title : 'lesson 1', to:'/lesson_1'},{title:'lesson 2', to:'/lesson_2'},{title:'lesson 3', to:'/lesson_3'}
-        ]},
-        {title: 'Some', to:'/some'}
+        {title: 'Home', isInner: false, to: '/'},
+        {
+            title: 'Languages', isInner: true, menu: [
+            {title: 'All', to: '/languages/all'},
+            {title: 'Javascript', to: '/languages/javascript'},
+            {title: 'Ruby', to: '/languages/ruby'},
+            {title: 'CSS', to: '/languages/css'},
+            {title: 'Python', to: '/languages/python'}
+        ]
+        },
+        {title: 'Some', to: '/some'}
     ];
     return (
         <Nav>
-            {nav.map(function(e, idx){
-                if(e.isInner){
+            {nav.map(function (e, idx) {
+                if (e.isInner) {
                     return (
-                        <NavDropdown eventKey={idx} title={e.title} id="basic-nav-dropdown">
-                            {e.menu.map(function(ee, iidx){
-                                return <MenuItem href={ee.to} eventKey={idx + '-' + iidx} key={idx + '-' + iidx}>{ee.title}</MenuItem>;
+                        <NavDropdown eventKey={idx} title={e.title} id="basic-nav-dropdown" key={idx}>
+                            {e.menu.map(function (ee, iidx) {
+                                return <MenuItem href={ee.to}
+                                                 eventKey={idx + '-' + iidx}
+                                                 key={idx + '-' + iidx}>{ee.title}</MenuItem>;
                             })}
                         </NavDropdown>
                     )
@@ -46,20 +55,20 @@ NavItems.PropTypes = {
 
 class ButtleNav extends React.Component {
 
-    constructor(){
+    constructor() {
         super();
         this.state = {
-            selected : 'Home'
+            selected: 'Home'
         };
 
         this.updateNav = this.updateNav.bind(this);
     }
 
-    updateNav(item){
-        this.setState(function(){
-           return {
-               selected : item
-           }
+    updateNav(item) {
+        this.setState(function () {
+            return {
+                selected: item
+            }
         })
     }
 
@@ -69,9 +78,9 @@ class ButtleNav extends React.Component {
             <Navbar inverse collapseOnSelect>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <a href="#">React.js ///</a>
+                        <a href="/">React.js ///</a>
                     </Navbar.Brand>
-                    <Navbar.Toggle />
+                    <Navbar.Toggle/>
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <NavItems selected={this.state.selected} onSelect={this.updateNav}/>
@@ -84,4 +93,5 @@ class ButtleNav extends React.Component {
         )
     }
 }
+
 export default ButtleNav;
