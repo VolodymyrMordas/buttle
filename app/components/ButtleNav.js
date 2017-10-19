@@ -14,6 +14,7 @@ function NavItems(props) {
             title: 'Languages', isInner: true, menu: [
             {title: 'All', to: '/languages/all'},
             {title: 'Javascript', to: '/languages/javascript'},
+            {title: 'Java', to: '/languages/java'},
             {title: 'Ruby', to: '/languages/ruby'},
             {title: 'CSS', to: '/languages/css'},
             {title: 'Python', to: '/languages/python'}
