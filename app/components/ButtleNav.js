@@ -8,7 +8,6 @@ import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 
 function NavItems(props) {
-    // ['All', 'Javascript', 'Ruby', 'Java', 'CSS', 'Python'];
     const nav = [
         {title: 'Home', isInner: false, to: '/'},
         {

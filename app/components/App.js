@@ -2,15 +2,11 @@ import React from 'react';
 import ReactDOM from  'react-dom';
 import ButtleNav from './ButtleNav';
 
-import Popular from './Popular';
 import Home from './Home';
 import Language from "./Language";
-import App_1 from "./App_1";
 
-const ReactRouter = require('react-router-dom');
-const Router = ReactRouter.BrowserRouter;
-const Switch = ReactRouter.Switch;
-const Route = ReactRouter.Route;
+import Router from 'react-router-dom/BrowserRouter';
+import Route from 'react-router-dom/Route';
 
 class App extends React.Component {
     render() {
