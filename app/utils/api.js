@@ -8,5 +8,13 @@ module.exports = {
            .then(function (res) {
                 return res.data.items;
            });
+   },
+
+   getRepository : function(owner, repo){
+       const encodedUrl = window.encodeURI('https://api.github.com/repos/' + owner + '/' + repo);
+       return Axios.get(encodedUrl)
+           .then(function (res) {
+               return res.data.items;
+           });
    }
 };

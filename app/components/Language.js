@@ -4,6 +4,7 @@ import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Thumbnail from 'react-bootstrap/lib/Thumbnail';
+import Loading from './Loading';
 
 import api from '../utils/api';
 
@@ -15,7 +16,7 @@ export default class Language extends React.Component {
             selected: match.params.id
         };
 
-        // this.updateRepositoryView = this.updateRepositoryView.bind(this);
+        this.updateRepositoryView = this.updateRepositoryView.bind(this);
     }
 
     componentDidMount(){
@@ -43,8 +44,7 @@ export default class Language extends React.Component {
     render () {
         return (
             <Grid>
-                {!this.state.repository ? <h4>Loading ...</h4>
-                    : <RepositoryItems repository={this.state.repository} />}
+                {!this.state.repository ? <Loading /> : <RepositoryItems repository={this.state.repository} />}
             </Grid>
         )
     }
@@ -55,9 +55,10 @@ function RepositoryItems(props){
         <Row>
             {props.repository.map(function(itm, idx){
                 return (
-                    <Col xs={6} md={2} key={idx}>
-                        <Thumbnail src={itm.owner.avatar_url} alt="242x200">
-                            <h4>{itm.owner.login}</h4>
+                    <Col xs={4} md={2} key={idx}>
+                        <Thumbnail src={itm.owner.avatar_url} alt="171x180">
+                            <h5>{itm.name}</h5>
+                            <p>{itm.language}</p>
                         </Thumbnail>
                     </Col>
                 )

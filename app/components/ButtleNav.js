@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Nav from 'react-bootstrap/lib/Nav';
-import Navbar from 'react-bootstrap/lib/Navbar';
-import NavItem from 'react-bootstrap/lib/NavItem';
 import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
+import {Nav, Navbar, NavItem, FormGroup, FormControl} from 'react-bootstrap/lib';
+import {Route, Switch, BrowserRouter} from 'react-router-dom';
+import Home from './Home';
+import Language from './Language';
+import Battle from './Battle';
 
 function NavItems(props) {
     const nav = [
@@ -17,34 +19,38 @@ function NavItems(props) {
             {title: 'Java', to: '/languages/java'},
             {title: 'Ruby', to: '/languages/ruby'},
             {title: 'CSS', to: '/languages/css'},
-            {title: 'Python', to: '/languages/python'}
-        ]
+            {title: 'Python', to: '/languages/python'}]
         },
-        {title: 'Some', to: '/some'}
+        {title: 'Battle', to: '/battle', isInner: false}
     ];
     return (
-        <Nav>
-            {nav.map(function (e, idx) {
-                if (e.isInner) {
-                    return (
-                        <NavDropdown eventKey={idx} title={e.title} id="basic-nav-dropdown" key={idx}>
-                            {e.menu.map(function (ee, iidx) {
-                                return <MenuItem href={ee.to}
-                                                 eventKey={idx + '-' + iidx}
-                                                 key={idx + '-' + iidx}>{ee.title}</MenuItem>;
-                            })}
-                        </NavDropdown>
-                    )
-                } else {
-                    return (<NavItem
-                        active={props.selected === e.title}
-                        onClick={props.onSelect.bind(null, e)}
-                        eventKey={idx}
-                        href={e.to}
-                        key={idx}>{e.title}</NavItem>)
-                }
-            })}
-        </Nav>
+        <div>
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path='/' component={Home}/>
+                    <Route exact path='/languages/:id' component={Language}/>
+                    <Route exact path='/battle' component={Battle}/>
+                </Switch>
+            </BrowserRouter>
+            <Nav>
+                {nav.map(function (e, idx) {
+                    if (e.isInner) {
+                        return (
+                            <NavDropdown eventKey={idx} title={e.title} id="basic-nav-dropdown" key={idx}>
+                                {e.menu.map(function (ee, iidx) {
+                                    return <MenuItem href={"#"} eventKey={idx + '-' + iidx} key={idx + '-' + iidx}
+                                                     onClick={props.onSelect.bind(null, ee.title)}>{ee.title}</MenuItem>;
+                                })}
+                            </NavDropdown>
+                        )
+                    } else {
+                        return (
+                            <NavItem key={idx} active={e.title === props.selected} to={e.to} onClick={props.onSelect.bind(null, e.title)}>{e.title}</NavItem>
+                        )
+                    }
+                })}
+            </Nav>
+        </div>
     )
 }
 
@@ -53,12 +59,13 @@ NavItems.PropTypes = {
     onSelect: PropTypes.func.isRequired
 };
 
-class ButtleNav extends React.Component {
+export default class ButtleNav extends React.Component {
 
     constructor() {
         super();
         this.state = {
-            selected: 'Home'
+            selected: 'Home',
+            onSelect: null
         };
 
         this.updateNav = this.updateNav.bind(this);
@@ -73,7 +80,6 @@ class ButtleNav extends React.Component {
     }
 
     render() {
-
         return (
             <Navbar inverse collapseOnSelect>
                 <Navbar.Header>
@@ -83,15 +89,19 @@ class ButtleNav extends React.Component {
                     <Navbar.Toggle/>
                 </Navbar.Header>
                 <Navbar.Collapse>
+
                     <NavItems selected={this.state.selected} onSelect={this.updateNav}/>
                     <Nav pullRight>
                         <NavItem eventKey={1} href="#">Sign In</NavItem>
                         <NavItem eventKey={2} href="#">Sign Up</NavItem>
                     </Nav>
+                    <Navbar.Form pullRight>
+                        <FormGroup>
+                            <FormControl type="text" placeholder="Search"/>
+                        </FormGroup>
+                    </Navbar.Form>
                 </Navbar.Collapse>
             </Navbar>
         )
     }
 }
-
-export default ButtleNav;
